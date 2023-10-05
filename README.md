@@ -19,7 +19,7 @@ ShellSpawn is a simple shell program designed to execute various commands in a c
 ## Installation
 
 1. Clone the repository:
-git clone https://github.com/your_username/ShellSpawn.git
+git clone https://github.com/spicy/ShellSpawn.git
 
 2. Navigate to the directory:
 cd ShellSpawn
