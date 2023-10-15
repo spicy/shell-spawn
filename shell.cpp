@@ -14,8 +14,8 @@ int main()
     // The ID of the child process
     pid_t pid;
 
-    // Keep running until the user has typed "exit"
-    do 
+    // Keep running until the user typed "exit"
+    do
     {
         // Prompt the user to enter the command
         cerr << "cmd> ";
@@ -31,26 +31,31 @@ int main()
         // Error check to make sure the child was successfully created
         if (pid < 0)
         {
-            perror("fork has failed");
+            perror("fork");
             return -1;
         }
-        
+
         // If I am the child
         if (pid == 0)
         {
-            execlp(cmdBuff.c_str(), cmdBuff.c_str(), NULL);
-
-            perror("execlp failed");
-            exit(1);
+            if (execlp(cmdBuff.c_str(), cmdBuff.c_str(), NULL) == -1)
+            {
+                perror("execlp");
+                exit(1);
+            }
         }
         // If I am the parent
-        else 
+        else
         {
             int status;
-            wait(&status);
+            if (wait(&status) == -1)
+            {
+                perror("wait");
+                return -1;
+            }
         }
-    } 
+    }
     while (true); // loop will break when cmdBuff is "exit"
 
-    return 0;    
+    return 0;
 }
